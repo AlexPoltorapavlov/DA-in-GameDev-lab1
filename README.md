@@ -146,7 +146,27 @@ print('Hello world!')
 ![image](https://user-images.githubusercontent.com/98959447/194006464-a9e22eca-b231-4cf5-bf59-46904c28ddd0.png)
 
 Код на Unity:
+```cs
+using UnityEngine;
 
+public class Hello_world : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Debug.Log("Hello world!");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+```
+
+![image](https://user-images.githubusercontent.com/98959447/194013395-5fd4dbdc-fe63-455e-b60d-16e605594f85.png)
 
 
 ## Выводы
