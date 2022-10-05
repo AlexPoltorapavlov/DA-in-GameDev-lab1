@@ -1,14 +1,14 @@
 # АНАЛИЗ ДАННЫХ И ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ [in GameDev]
 Отчет по лабораторной работе #1 выполнил(а):
-- Иванова Ивана Варкравтовна
-- РИ000024
+- Полторапавлова Александра Алексеевича
+- 2093937
 Отметка о выполнении заданий (заполняется студентом):
 
 | Задание | Выполнение | Баллы |
 | ------ | ------ | ------ |
-| Задание 1 | # | 60 |
-| Задание 2 | # | 20 |
-| Задание 3 | # | 20 |
+| Задание 1 | * | 60 |
+| Задание 2 | * | 20 |
+| Задание 3 | * | 20 |
 
 знак "*" - задание выполнено; знак "#" - задание не выполнено;
 
@@ -61,69 +61,96 @@ y = np.array(y)
 plt.scatter(x,y)
 
 ```
+![image](https://user-images.githubusercontent.com/98959447/194002877-13868740-9794-4fae-9a9d-60cde41638bd.png)
 
 - Определите связанные функции. Функция модели: определяет модель линейной регрессии wx+b. Функция потерь: функция потерь среднеквадратичной ошибки. Функция оптимизации: метод градиентного спуска для нахождения частных производных w и b.
+```py
+# Функция модели: определяет модель линейной регрессии wx+b
+def model(w, b, x):
+    return w*x + b
+
+# Функция потерь: функция потерь среднеквадратичной ошибки
+def loss_function(w, b, x, y):
+    num = len(x)
+    prediction = model(w, b, x)
+    return (0.5/num) * (np.square(prediction - y)).sum()
+
+# Функция оптимизации: метод градиентного спуска для нахождения частных производных w и b.
+def optimize(w, b, x, y):
+    num = len(x)
+    prediction = model(w, b, x)
+    dw = (1.0 / num) * ((prediction - y) * x).sum()
+    db = (1.0 / num) * ((prediction - y).sum())
+    
+    w = w - Lr*dw
+    b = b - Lr*db
+    return w, b
+
+def iterate(w, b, x, y, times):
+    for i in range (times):
+        w, b = optimize (w, b, x, y)
+        
+    return w, b
+```
+![image](https://user-images.githubusercontent.com/98959447/194003345-1a5dc310-5fb0-4224-a997-c3895919b5bb.png)
+
+```py
+w = np.random.rand(1)
+print(f'w = {w}') # написал, что w есть w, а b есть b, чтобы не путаться
+b = np.random.rand(1)
+print(f'b = {b}')
+Lr = 0.000001
+
+w, b = iterate(w, b, x, y, 1000000) # the more times it iterates the line is more correct
+prediction = model(w, b, x)
+loss = loss_function(w, b, x, y)
+print({'w': w, 'b': b, 'loss': loss}) # made dict for my understanding
+plt.scatter(x, y)
+plt.plot(x, prediction)
+```
+![image](https://user-images.githubusercontent.com/98959447/194004381-9bb72289-ec1c-424a-9642-a2b0fff460fd.png)
+
 
 
 ## Задание 2
 ### Должна ли величина loss стремиться к нулю при изменении исходных данных? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ.
 
-- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
-- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
+При определенных начальных данных величина loss стремится к нулю. loss -> 0 при условии, что сумма элементов массива 'y' равняется сумме элементов массива 'x', умноженных на 'w' и еще прибавить 'b'. При этом длина массивов не имеет значение
 
 ```py
+def is_loss_zero():
+#  (0.5/10) * np.square(w*x + b - y) -> 0
+#  np.square(w*x + b - y) -> 0
+# w*x + b - y -> 0
+# w*x -> y - b
+# if w*x -> y - b then loss -> 0
+  x = 100
+  y = w * x + b
+  return (0.5/10) * np.square(w*x + b - y)
 
-import ScriptEnv
-ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
-oDesktop.RestoreWindow()
-oProject = oDesktop.NewProject()
-oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
-oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
-oDesign = oProject.SetActiveDesign("HFSSDesign1")
-oEditor = oDesign.SetActiveEditor("3D Modeler")
-oEditor.CreateSphere(
-	[
-		"NAME:SphereParameters",
-		"XCenter:="		, "0mm",
-		"YCenter:="		, "0mm",
-		"ZCenter:="		, "0mm",
-		"Radius:="		, "1.0770329614269mm"
-	], 
-)
+print (is_loss_zero()) # loss -> 0 при условии, что сумма элементов 
+# массива 'y' равняется сумме элементов массива 'x', умноженных на 'w' и 
+# еще прибавить 'b'. При этом длина массивов не имеет значение
 
 ```
+![image](https://user-images.githubusercontent.com/98959447/194005285-48a553c1-c425-4a34-803f-17bf27f346fe.png)
 
-## Задание 3
-### Какова роль параметра Lr? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ. В качестве эксперимента можете изменить значение параметра.
+### Задание 3
+## Написать "Hello world" На python и в Unity 3D
 
-- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
-- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
-
+Код на python:
 ```py
-
-import ScriptEnv
-ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
-oDesktop.RestoreWindow()
-oProject = oDesktop.NewProject()
-oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
-oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
-oDesign = oProject.SetActiveDesign("HFSSDesign1")
-oEditor = oDesign.SetActiveEditor("3D Modeler")
-oEditor.CreateSphere(
-	[
-		"NAME:SphereParameters",
-		"XCenter:="		, "0mm",
-		"YCenter:="		, "0mm",
-		"ZCenter:="		, "0mm",
-		"Radius:="		, "1.0770329614269mm"
-	], 
-)
-
+print('Hello world!')
 ```
+
+![image](https://user-images.githubusercontent.com/98959447/194006464-a9e22eca-b231-4cf5-bf59-46904c28ddd0.png)
+
+Код на Unity:
+
+
 
 ## Выводы
-
-Абзац умных слов о том, что было сделано и что было узнано.
+Ознакомился с принципом работы линейной регрессии, вспомнил немного математики для второго задания. Ознакомился немного с Unity и языком C#.
 
 | Plugin | README |
 | ------ | ------ |
