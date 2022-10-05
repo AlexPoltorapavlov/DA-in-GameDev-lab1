@@ -42,6 +42,8 @@
 Ход работы:
 - Произвести подготовку данных для работы с алгоритмом линейной регрессии. 10 видов данных были установлены случайным образом, и данные находились в линейной зависимости. Данные преобразуются в формат массива, чтобы их можно было вычислить напрямую при использовании умножения и сложения.
 
+Ссылка на код: https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Google_colab_scripts/linear_regression.ipynb
+
 ```py
 
 In [ ]:
@@ -62,6 +64,7 @@ plt.scatter(x,y)
 
 ```
 ![image](https://user-images.githubusercontent.com/98959447/194002877-13868740-9794-4fae-9a9d-60cde41638bd.png)
+https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Photo_report/Task1(1).png
 
 - Определите связанные функции. Функция модели: определяет модель линейной регрессии wx+b. Функция потерь: функция потерь среднеквадратичной ошибки. Функция оптимизации: метод градиентного спуска для нахождения частных производных w и b.
 ```py
@@ -93,6 +96,7 @@ def iterate(w, b, x, y, times):
     return w, b
 ```
 ![image](https://user-images.githubusercontent.com/98959447/194003345-1a5dc310-5fb0-4224-a997-c3895919b5bb.png)
+https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Photo_report/Task1(2).png
 
 ```py
 w = np.random.rand(1)
@@ -109,13 +113,15 @@ plt.scatter(x, y)
 plt.plot(x, prediction)
 ```
 ![image](https://user-images.githubusercontent.com/98959447/194004381-9bb72289-ec1c-424a-9642-a2b0fff460fd.png)
-
+https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Photo_report/Task1(3).png
 
 
 ## Задание 2
 ### Должна ли величина loss стремиться к нулю при изменении исходных данных? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ.
 
 При определенных начальных данных величина loss стремится к нулю. loss -> 0 при условии, что сумма элементов массива 'y' равняется сумме элементов массива 'x', умноженных на 'w' и еще прибавить 'b'. При этом длина массивов не имеет значение
+
+Ссылка на код: https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Google_colab_scripts/linear_regression.ipynb
 
 ```py
 def is_loss_zero():
@@ -134,9 +140,12 @@ print (is_loss_zero()) # loss -> 0 при условии, что сумма эл
 
 ```
 ![image](https://user-images.githubusercontent.com/98959447/194005285-48a553c1-c425-4a34-803f-17bf27f346fe.png)
+https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Photo_report/Task2.png
 
 ### Задание 3
 ## Написать "Hello world" На python и в Unity 3D
+
+Ссылка на код: https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Google_colab_scripts/Hello_world.ipynb
 
 Код на python:
 ```py
@@ -144,6 +153,9 @@ print('Hello world!')
 ```
 
 ![image](https://user-images.githubusercontent.com/98959447/194006464-a9e22eca-b231-4cf5-bf59-46904c28ddd0.png)
+https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Photo_report/Task3(1).png
+
+Ссылка на код: https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Work_with_unity/New%20Unity%20Project/Assets/Scripts/Hello_world.cs
 
 Код на Unity:
 ```cs
@@ -167,7 +179,7 @@ public class Hello_world : MonoBehaviour
 ```
 
 ![image](https://user-images.githubusercontent.com/98959447/194013395-5fd4dbdc-fe63-455e-b60d-16e605594f85.png)
-
+https://github.com/AlexPoltorapavlov/ML_Labs_and_Homeworks/blob/main/Lab1/Photo_report/Task3(2)png.png
 
 ## Выводы
 Ознакомился с принципом работы линейной регрессии, вспомнил немного математики для второго задания. Ознакомился немного с Unity и языком C#.
